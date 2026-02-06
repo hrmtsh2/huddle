@@ -9,7 +9,6 @@ const addAllCurrentWindowBtn = document.getElementById('addAllCurrentWindow');
 const groupByDomainBtn = document.getElementById('groupByDomain');
 const deduplicateTabsBtn = document.getElementById('deduplicateTabs');
 const suspendTabsBtn = document.getElementById('suspendTabs');
-const activeGroupsContainer = document.getElementById('activeGroups');
 const activeGroupsList = document.getElementById('activeGroupsList');
 const groupSelectionCount = document.getElementById('groupSelectionCount');
 const groupSelectionControls = document.getElementById('groupSelectionControls');
@@ -87,7 +86,9 @@ function setupEventListeners() {
   tabSearchInput.addEventListener('input', handleSearch);
   clearSearchBtn.addEventListener('click', clearSearch);
   
-  contentSearchBtn.addEventListener('click', performContentSearch);
+  contentSearchBtn.addEventListener('click', () => {
+    performContentSearch
+  });
   contentSearchInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') performContentSearch();
   });
