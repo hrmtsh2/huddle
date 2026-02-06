@@ -87,7 +87,7 @@ function setupEventListeners() {
   clearSearchBtn.addEventListener('click', clearSearch);
   
   contentSearchBtn.addEventListener('click', () => {
-    performContentSearch
+    performContentSearch();
   });
   contentSearchInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') performContentSearch();
@@ -1064,6 +1064,12 @@ async function extractTabContent(tabId) {
 async function performContentSearch(query = contentSearchInput.value.trim()) {
   if (!query) {
     contentSearchResults.classList.add('hidden');
+    return;
+  }
+
+  if (query.length < 3) {
+    contentSearchResults.classList.remove('hidden');
+    contentSearchResults.innerHTML = '<div class="no-results">search string is too short (minimum 3 characters)</div>';
     return;
   }
 
