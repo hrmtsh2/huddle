@@ -541,7 +541,7 @@ async function groupTabsByDomain() {
         const groupId = await chrome.tabs.group({ tabIds });
         await chrome.tabGroups.update(groupId, {
           title: domain,
-          colour: DOMAIN_COLOURS[colourIndex % DOMAIN_COLOURS.length]
+          color: DOMAIN_COLOURS[colourIndex % DOMAIN_COLOURS.length]
         });
         groupsCreated++;
         colourIndex++;
@@ -644,7 +644,7 @@ async function addSelectedTabsToNewGroup() {
     const groupId = await chrome.tabs.group({ tabIds: allTabIds });
     await chrome.tabGroups.update(groupId, {
       title: groupName,
-      colour: colour
+      color: colour
     });
     
     showStatus(`created group "${groupName}" with ${allTabIds.length} tabs`);
