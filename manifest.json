@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Huddle",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Easily manage tab groups - add all tabs to a group at once, search across tab content, and more",
   "permissions": [
     "tabs",
