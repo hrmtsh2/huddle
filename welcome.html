@@ -6,7 +6,7 @@
     <title>huddle</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cantata+One&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
       :root {
         color-scheme: dark;
@@ -26,8 +26,8 @@
       }
       body {
         margin: 0;
-        font-family: 'Cantata One', Georgia, serif;
-        font-size: 17px;
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 14px;
         background: #041a3d;
         color: var(--text);
       }
@@ -39,11 +39,20 @@
       header {
         margin-bottom: 24px;
       }
+      header h2 {
+        margin: 0 0 4px;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        color: var(--muted);
+      }
       h1 {
         margin: 0 0 8px;
-        font-size: 32px;
-        letter-spacing: 0.2px;
-        color: var(--accent);
+        font-family: 'Instrument Serif', Georgia, serif;
+        font-weight: 400;
+        font-size: 40px;
+        letter-spacing: 0.5px;
+        color: #ffffff;
       }
       p {
         margin: 0 0 16px;
@@ -56,18 +65,22 @@
       }
       .card {
         background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 14px;
-        padding: 16px;
+        border-radius: 2px;
+        border-top: 2px solid var(--accent);
+        padding: 0 16px 16px;
       }
       .card h2 {
-        margin: 0 0 12px;
-        font-size: 18px;
-        color: var(--accent);
+        margin: 0 -16px 12px;
+        padding: 8px 16px;
+        background: var(--accent);
+        color: var(--bg);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
       }
       .card h3 {
         margin: 12px 0 8px;
-        font-size: 16px;
+        font-size: 14px;
         color: var(--text);
       }
       .card ol,
@@ -76,23 +89,25 @@
         padding-left: 18px;
         color: var(--muted);
         line-height: 1.6;
+        font-size: 13px;
       }
       .card li {
         margin-bottom: 4px;
       }
       .card code {
-        background: rgba(79, 195, 247, 0.15);
+        background: #041a3d;
+        border: 1px solid var(--border);
         padding: 2px 6px;
-        border-radius: 4px;
-        font-size: 14px;
+        border-radius: 2px;
+        font-size: 12px;
         color: var(--accent);
       }
       .cta {
         margin-top: 24px;
         padding: 18px;
-        border-radius: 14px;
+        border-radius: 2px;
         background: #0a2a5e;
-        border: 1px solid var(--border);
+        border-top: 2px solid var(--accent);
         display: flex;
         flex-wrap: wrap;
         align-items: center;
@@ -105,14 +120,15 @@
         color: #041a3d;
         text-decoration: none;
         padding: 10px 16px;
-        border-radius: 10px;
+        border-radius: 2px;
         font-weight: 600;
+        font-size: 13px;
       }
       .cta a:hover {
         background: #8a919d;
       }
       .hint {
-        font-size: 15px;
+        font-size: 12px;
         color: var(--muted);
         margin-top: 8px;
       }
@@ -125,7 +141,7 @@
         width: 100px;
         height: 100px;
         background: white;
-        border-radius: 8px;
+        border-radius: 2px;
         padding: 6px;
         flex-shrink: 0;
       }
@@ -137,15 +153,19 @@
         margin-top: 24px;
       }
       .feature-section h2 {
-        font-size: 24px;
+        font-family: 'Instrument Serif', serif;
+        font-style: italic;
+        font-weight: 400;
+        font-size: 26px;
         margin-bottom: 16px;
-        color: var(--accent);
+        color: #ffffff;
         border-bottom: 1px solid var(--border);
         padding-bottom: 8px;
+        background: none;
       }
       @media (max-width: 600px) {
         h1 {
-          font-size: 28px;
+          font-size: 32px;
         }
         .qr-section {
           flex-direction: column;
@@ -157,7 +177,7 @@
         padding-top: 16px;
         border-top: 1px solid var(--border);
         text-align: center;
-        font-size: 15px;
+        font-size: 12px;
         color: var(--muted);
       }
       .footer a {
@@ -172,7 +192,7 @@
   <body>
     <main>
       <header>
-        <h2>if you love grouping tabs, you'll love</h2>
+        <h2>if your browser is your reasearch workstation, you'll love</h2>
         <h1>huddle</h1>
         <p>create, manage, and search through your tab groups.</p>
       </header>
