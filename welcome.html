@@ -256,6 +256,20 @@
             <li>use content search to look for pages by content (perhaps, to group them).</li>
           </ul>
         </div>
+
+        <div class="card">
+          <h2>ai features</h2>
+          <ul>
+            <li>huddle can use chrome's built-in, on-device ai (gemini nano) to auto-summarise your tab groups.</li>
+            <li>everything runs locally, but chrome needs to download a one-time (~22 GB) model the first time it's used.</li>
+            <li>you can opt in and out any time (through the checkbox below). just click on the help button on the extension popup to visit this page.</li>
+          </ul>
+          <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:13px;">
+            <input type="checkbox" id="aiFeaturesToggle">
+            enable ai features
+          </label>
+          <div id="aiDownloadStatus" class="hint"></div>
+        </div>
       </section>
 
       <section class="cta">
@@ -281,5 +295,6 @@
       </footer>
       <footer> uses <a href="https://www.flaticon.com/free-icons/search" title="search icons">Search icons created by Catalin Fertu - Flaticon</a></footer>
     </main>
+    <script src="welcome.js"></script>
   </body>
 </html>

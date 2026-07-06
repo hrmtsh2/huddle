@@ -6,6 +6,8 @@ export const state = {
   searchQuery: '',
   contentStore: null,
   groupInfoCache: new Map(),
+  aiFeaturesEnabled: false,
+  tabSummaryCache: new Map()
 };
 
 export const tabGroupColours = ['blue', 'red', 'yellow', 'green', 'pink', 'purple', 'cyan', 'orange', 'grey'];

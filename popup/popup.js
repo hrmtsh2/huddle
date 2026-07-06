@@ -17,6 +17,7 @@ import {
   suspendSelectedTabs, mergeSelectedGroups, clearGroupSelection,
 } from './groups.js';
 import { updateIndexStats, performContentSearch } from './content-search.js';
+import { initSummaryCache } from './summarise.js';
 
 document.addEventListener('DOMContentLoaded', init);
 
@@ -24,7 +25,9 @@ async function init() {
   try {
     const currentWindow = await chrome.windows.getCurrent();
     state.currentWindowId = currentWindow.id;
-
+    const { aiFeaturesEnabled } = await chrome.storage.local.get(['aiFeaturesEnabled']);
+    state.aiFeaturesEnabled = !!aiFeaturesEnabled;
+    await initSummaryCache();
     state.contentStore = new TabContentStore();
     await state.contentStore.init();
 

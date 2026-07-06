@@ -1,4 +1,4 @@
-import { getDomain, escapeHtml } from './utils.js';
+import { getDomain, escapeHtml, truncate } from './utils.js';
 import { state, tabGroupColours } from './state.js';
 import {
   activeGroupsList,
@@ -11,6 +11,18 @@ import {
 } from './dom.js';
 import { showStatus } from './status.js';
 import { loadAllTabs, findDuplicates } from './tabs.js';
+import { getGroupTabSummaries } from './summarise.js';
+
+async function renderGroupSummaryList(listEl, tabs, options = {}){
+  const results = await getGroupTabSummaries(tabs, options);
+  listEl.innerHTML = results
+  .filter(r => r.summary)
+  .map(r => `
+    <div class="tab-summary-line" data-tab-id="${r.tabId}" title="${escapeHtml(r.url)}">
+      <span class="tab-summary-title">${escapeHtml(truncate(r.title, 28))}</span>
+      <span class="tab-summary-text">${escapeHtml(r.summary)}</span>
+  `).join('');
+}
 
 export async function getActiveTabGroups() {
   const windows = await chrome.windows.getAll({ populate: true });
@@ -55,17 +67,21 @@ export async function refreshActiveGroups() {
     }
     activeGroupsList.innerHTML = groups.map(group => `
     <div class="group-item" data-group-id="${group.id}">
-      <label class="checkbox-label group-checkbox-label">
-        <input type="checkbox" class="group-checkbox" data-group-id="${group.id}" ${state.selectedGroupIds.has(group.id) ? 'checked' : ''}>
-      </label>
-      <div class="group-info">
-        <span class="colour-dot colour-${group.colour}"></span>
-        <span class="group-name">${escapeHtml(group.title)}</span>
-        <span class="tab-count">(${group.tabCount} tabs)</span>
+      <div class="group-item-main">
+        <label class="checkbox-label group-checkbox-label">
+          <input type="checkbox" class="group-checkbox" data-group-id="${group.id}" ${state.selectedGroupIds.has(group.id) ? 'checked' : ''}>
+        </label>
+        <div class="group-info">
+          <span class="colour-dot colour-${group.colour}"></span>
+          <span class="group-name">${escapeHtml(group.title)}</span>
+          <span class="tab-count">(${group.tabCount} tabs)</span>
+        </div>
+        <div class="group-actions">
+          ${state.aiFeaturesEnabled ? `<button class="regen-summary-btn" data-group-id="${group.id}" title="regenerate summaries">↻</button>` : ''}
+          <button class="action-btn ungroup" data-action="ungroup" title="ungroup tabs">ungroup</button>
+        </div>
       </div>
-      <div class="group-actions">
-        <button class="action-btn ungroup" data-action="ungroup" title="ungroup tabs">ungroup</button>
-      </div>
+      ${state.aiFeaturesEnabled ? `<div class="group-summary-list" data-group-id="${group.id}"></div>` : ''}
     </div>
   `).join('');
   existingGroupSelect.innerHTML = '<option value="">select an open group...</option>' +
@@ -79,6 +95,25 @@ export async function refreshActiveGroups() {
     checkbox.addEventListener('change', handleGroupCheckboxChange);
   });
   updateGroupSelectionCount();
+  const windows = await chrome.windows.getAll({ populate: true });
+  for (const group of groups) {
+    const groupTabs = windows.flatMap(w => w.tabs).filter(t => t.groupId === group.id);
+    const listEl = activeGroupsList.querySelector(`.group-summary-list[data-group-id="${group.id}"]`);
+    const regenBtn = activeGroupsList.querySelector(`.regen-summary-btn[data-group-id="${group.id}"]`);
+
+    if (listEl) {
+      renderGroupSummaryList(listEl, groupTabs);
+    }
+
+    if (regenBtn) {
+      regenBtn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        regenBtn.classList.add('spinning');
+        await renderGroupSummaryList(listEl, groupTabs, { force: true });
+        regenBtn.classList.remove('spinning');
+      });
+    }
+  }
   } catch (error) {
     console.error(`groups.js: refreshActiveGroups error: ${error}`);
     activeGroupsList.innerHTML = '<p class="empty-message">error loading groups</p>';
@@ -415,7 +450,8 @@ export async function ungroupTabs(groupId) {
     }
 
     await chrome.tabs.ungroup(tabIds);
-
+    
+    invalidateGroupSummary(groupId);
     showStatus(`ungrouped ${tabIds.length} tabs`);
     await loadAllTabs();
     await refreshActiveGroups();
@@ -466,6 +502,7 @@ export async function mergeSelectedGroups() {
     }
 
     const targetGroup = selectedGroups[0];
+    selectedGroups.forEach(g => invalidateGroupSummary(g.id));
     const tabIdsToMove = [];
 
     const windows = await chrome.windows.getAll({ populate: true });
