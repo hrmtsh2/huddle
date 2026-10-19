@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>huddle</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #041a3d;
+        --card: #0a2a5e;
+        --text: #ffffff;
+        --muted: #b1b8c4;
+        --accent: #b1b8c4;
+        --accent-dark: #8a919d;
+        --border: #1a3a6d;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      input, button, select, textarea {
+        font-family: inherit;
+      }
+      body {
+        margin: 0;
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 14px;
+        background: #041a3d;
+        color: var(--text);
+      }
+      main {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 32px 20px 48px;
+      }
+      header {
+        margin-bottom: 24px;
+      }
+      header h2 {
+        margin: 0 0 4px;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        color: var(--muted);
+      }
+      h1 {
+        margin: 0 0 8px;
+        font-family: 'Instrument Serif', Georgia, serif;
+        font-weight: 400;
+        font-size: 40px;
+        letter-spacing: 0.5px;
+        color: #ffffff;
+      }
+      p {
+        margin: 0 0 16px;
+        color: var(--muted);
+      }
+      .grid {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      }
+      .card {
+        background: var(--card);
+        border-radius: 2px;
+        border-top: 2px solid var(--accent);
+        padding: 0 16px 16px;
+      }
+      .card h2 {
+        margin: 0 -16px 12px;
+        padding: 8px 16px;
+        background: var(--accent);
+        color: var(--bg);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+      }
+      .card h3 {
+        margin: 12px 0 8px;
+        font-size: 14px;
+        color: var(--text);
+      }
+      .card ol,
+      .card ul {
+        margin: 0;
+        padding-left: 18px;
+        color: var(--muted);
+        line-height: 1.6;
+        font-size: 13px;
+      }
+      .card li {
+        margin-bottom: 4px;
+      }
+      .card code {
+        background: #041a3d;
+        border: 1px solid var(--border);
+        padding: 2px 6px;
+        border-radius: 2px;
+        font-size: 12px;
+        color: var(--accent);
+      }
+      .cta {
+        margin-top: 24px;
+        padding: 18px;
+        border-radius: 2px;
+        background: #0a2a5e;
+        border-top: 2px solid var(--accent);
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .cta a {
+        display: inline-block;
+        background: #b1b8c4;
+        color: #041a3d;
+        text-decoration: none;
+        padding: 10px 16px;
+        border-radius: 2px;
+        font-weight: 600;
+        font-size: 13px;
+      }
+      .cta a:hover {
+        background: #8a919d;
+      }
+      .hint {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 8px;
+      }
+      .qr-section {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .qr-code {
+        width: 100px;
+        height: 100px;
+        background: white;
+        border-radius: 2px;
+        padding: 6px;
+        flex-shrink: 0;
+      }
+      .qr-code img {
+        width: 100%;
+        height: 100%;
+      }
+      .feature-section {
+        margin-top: 24px;
+      }
+      .feature-section h2 {
+        font-family: 'Instrument Serif', serif;
+        font-style: italic;
+        font-weight: 400;
+        font-size: 26px;
+        margin-bottom: 16px;
+        color: #ffffff;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 8px;
+        background: none;
+      }
+      @media (max-width: 600px) {
+        h1 {
+          font-size: 32px;
+        }
+        .qr-section {
+          flex-direction: column;
+          text-align: center;
+        }
+      }
+      .footer {
+        margin-top: 32px;
+        padding-top: 16px;
+        border-top: 1px solid var(--border);
+        text-align: center;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .footer a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .footer a:hover {
+        text-decoration: underline;
+      }
+      .install-btn {
+        display: inline-block;
+        background: #b1b8c4;
+        color: #041a3d;
+        text-decoration: none;
+        padding: 10px 16px;
+        border-radius: 2px;
+        font-weight: 600;
+        font-size: 13px;
+        margin-right: 8px;
+      }
+      .install-btn.secondary {
+        background: transparent;
+        color: #b1b8c4;
+        border: 1px solid #3c4d75;
+      }
+    </style>
+    <meta name="description" content="create, manage, and search through your tab groups.">
+    <meta property="og:title" content="huddle - tab groups manager">
+    <meta property="og:description" content="create, manage, and search through your tab groups.">
+    <meta property="og:url" content="https://huddle.am1.tech">
+    <meta property="og:image" content="https://huddle.am1.tech/other-assets/icon16.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="other-assets/icon16.png">
+  </head>
+  <body>
+    <main>
+      <header>
+        <h2>if you live on your browser, you'll love</h2>
+        <h1>huddle</h1>
+        <p>create, manage, and search through your tab groups.</p>
+        <a class="install-btn" href="https://chromewebstore.google.com/detail/huddle/dbnndoelnkihbnchgnlmmopfmbaddgkl">add to chrome</a>
+        <a class="install-btn secondary" href="https://github.com/hrmtsh2/YOUR-REPO-NAME">github</a>
+      </header>
+
+      <section class="grid">
+        <div class="card">
+          <h2>quick actions</h2>
+          <ul>
+            <li><strong>group all (window)</strong> - group all tabs in the current window into a new group.</li>
+            <li><strong>group by site</strong> - automatically organise ungrouped tabs by website.</li>
+            <li><strong>remove duplicates</strong> - close duplicate tabs instantly.</li>
+            <li><strong>suspend inactive</strong> - save memory by suspending inactive tabs.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h2>select & manage tabs</h2>
+          <ul>
+            <li>use checkboxes to select individual tabs or entire windows.</li>
+            <li>search by title, url, or page content to filter tabs.</li>
+            <li><code>ctrl+click</code> on a tab title to switch to that tab.</li>
+            <li>add selected tabs to new or existing groups.</li>
+            <li>suspend, ungroup, or close selected tabs.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h2>content search</h2>
+          <ul>
+            <li>search text across open tabs.</li>
+            <li>filter by specific tab groups.</li>
+            <li>click on a search result to navigate to that tab.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h2>keyboard shortcuts</h2>
+          <ul>
+            <li><code>ctrl+shift+g</code> (windows/linux) - quickly group all tabs in the current window.</li>
+          </ul>
+          <ul>
+            <li><code>ctrl+click</code> on any tab title in the popup to open/switch to that tab.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h2>tab groups display</h2>
+          <ul>
+            <li>grouped tabs show their group name and color as a badge.</li>
+            <li>suspended tabs are marked with a "suspended" badge.</li>
+            <li>the 'active tab groups' section shows all current groups with tab counts.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h2>tips & best practices</h2>
+          <ul>
+            <li>use domain grouping for research sessions with multiple sites.</li>
+            <li>periodically remove duplicates to keep tabs organised.</li>
+            <li>suspend tabs you're not actively using to save memory.</li>
+            <li>use content search to look for pages by content (perhaps, to group them).</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h2>optional ai summaries</h2>
+          <ul>
+            <li>a short summary for every tab in a group, generated by chrome's built-in on-device ai.</li>
+            <li>off by default. nothing leaves your device. needs chrome and a one-time model download.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="cta">
+        <div class="qr-section">
+          <div class="qr-code">
+            <img src="other-assets/bmac-qr-code.png" alt="Buy Me a Coffee QR Code">
+          </div>
+          <div>
+            <strong>like my work?</strong>
+            <div class="hint">please scan the qr code or click the button to show support ;)</div>
+          </div>
+        </div>
+        <a
+          href="https://www.buymeacoffee.com/hrmtsh"
+          target="_blank"
+          rel="noopener"
+        >
+          buy me a football ⚽
+        </a>
+      </section>
+      <footer class="footer">
+        made with ❤️ (and some 🤖) by <a href="https://github.com/hrmtsh2" target="_blank" rel="noopener">hrmtsh</a>
+      </footer>
+      <footer> uses <a href="https://www.flaticon.com/free-icons/search" title="search icons">Search icons created by Catalin Fertu - Flaticon</a></footer>
+    </main>
+    <script src="welcome.js"></script>
+  </body>
+</html>
